@@ -3,6 +3,11 @@ import sqlite3
 from sqlite3 import Error
 import yfinance as yf
 import time
+from datetime import datetime
+
+
+start_at    = datetime.now()
+
 
 def get_data(startt, endd, list_tickers, what):
     hist = []
@@ -66,7 +71,7 @@ def create_connection(db_file):
 
 listt = open('list_symbols.txt', 'r').read().replace('\n', '').split(',')
 
-df = get_data('2022-05-25', '2022-06-16', listt,1)
+df = get_data('2017-01-01', '2022-06-16', listt,1)
 df_perf = shift_(df,3)
             
 conn = sqlite3.connect('sqliteDB.db')
@@ -77,10 +82,10 @@ df_perf.to_sql('data',con=conn,if_exists='append')
 
 
 
+end_at    = datetime.now()
 
 
-
-
+print (end_at - start_at)
 
 
 
